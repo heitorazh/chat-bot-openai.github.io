@@ -3,6 +3,7 @@ const apiKey = 'Chaveapi'
 
 function sendMessage(){
     var message = document.getElementById('message-input')
+    // caso o usuario deixe o campo em branco
     if(!message.value)
     {
         message.style.border = '1px solid red'
@@ -18,7 +19,7 @@ function sendMessage(){
     btnSubmit.disabled = true
     btnSubmit.style.cursor = 'not-allowed'
     message.disabled = true
-
+      //conexão com o servidor da OpenAI
     fetch("https://api.openai.com/v1/completions",{
         method: 'POST',
         headers: {
@@ -27,6 +28,7 @@ function sendMessage(){
             Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
+            //modelo do chat,pode ser atualizado para o chatgpt-4
             model: "text-davinci-003",
             prompt: message.value,
             max_tokens: 2048, // tamanho da resposta
@@ -54,7 +56,7 @@ function sendMessage(){
 function showHistory(message,response){
     var historyBox = document.getElementById('history')
 
-    // My message
+    // Minha messagem
     var boxMyMessage = document.createElement('div')
     boxMyMessage.className = 'box-my-message'
 
@@ -66,7 +68,7 @@ function showHistory(message,response){
 
     historyBox.appendChild(boxMyMessage)
 
-    // Response message
+    // Messagem do servidor da OpenAi
     var boxResponseMessage = document.createElement('div')
     boxResponseMessage.className = 'box-response-message'
 
